@@ -1,0 +1,177 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Barril Norte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: una sola columna tipo pizarra de canillas. Lo memorable son los vasos con el color real de cada cerveza. */
+:root{
+  --slate:#1B2220;--slate-2:#232C29;--chalk:#EFEADB;--muted:#A3AAA3;
+  --amber:#E2A83E;--oxide:#E27B5E;--foam:#F7F0DA;--line:rgba(239,234,219,.18);
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--slate);color:var(--chalk);font:400 1rem/1.5 var(--body);
+  background-image:radial-gradient(40rem 22rem at 15% -4rem,rgba(239,234,219,.07),transparent 70%)}
+.wrap{max-width:720px;margin:0 auto;padding-inline:1rem}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+.sample{background:var(--slate-2);border-bottom:1px solid var(--line);color:var(--muted);font-size:.85rem;padding-block:.5rem;text-align:center}
+header{padding-block:2.2rem 1.4rem}
+h1{font:800 clamp(2.6rem,12vw,4.4rem)/.95 var(--display);letter-spacing:-.02em;text-wrap:balance}
+.sub{margin-top:.8rem;color:var(--muted);max-width:28rem}
+
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--slate);border-block:1px solid var(--line)}
+nav.jump .wrap{display:flex;gap:.5rem;overflow-x:auto;padding-block:.6rem}
+nav.jump a{flex:none;color:var(--chalk);text-decoration:none;padding:.4rem .9rem;border:1px solid var(--line);border-radius:99px;font-weight:500;font-size:.95rem}
+nav.jump a:hover{border-color:var(--amber);color:var(--amber)}
+
+.own-bar{display:none;background:var(--amber);color:#1B1405;padding-block:.7rem;font-weight:500}
+body.owner .own-bar{display:block}
+
+main{padding-block:1.5rem 1rem}
+section{scroll-margin-top:4rem;padding-block:1.2rem 1.6rem}
+h2{font:700 1.6rem/1.1 var(--display);letter-spacing:-.01em}
+.note{color:var(--muted);font-size:.92rem;margin-top:.3rem}
+ul.list{list-style:none;margin:1rem 0 0;padding:0}
+.row{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.9rem;align-items:center;padding-block:1rem;border-top:1px solid var(--line)}
+.row.plain{grid-template-columns:minmax(0,1fr) auto}
+.row.out{opacity:.62}
+.glass{width:2.5rem;height:3.75rem;display:block}
+.tap{color:var(--amber);font-size:.82rem;font-weight:600}
+h3{font:600 1.15rem/1.2 var(--display)}
+.meta,.desc{color:var(--muted);font-size:.92rem}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.4rem}
+.chip{font-size:.78rem;padding:.1rem .55rem;border:1px solid var(--line);border-radius:99px;color:var(--muted)}
+.chip.sold{color:var(--oxide);border-color:var(--oxide)}
+.price{display:grid;gap:.25rem;text-align:right;font-variant-numeric:tabular-nums}
+.price span{color:var(--muted);font-size:.78rem;margin-right:.4rem}
+.price b{font-weight:600}
+.dash{color:var(--muted)}
+
+/* Modo dueño */
+.own{display:none}
+body.owner .own{display:grid}
+body.owner .view{display:none}
+body.owner .row{grid-template-columns:2.5rem minmax(0,1fr)}
+body.owner .row.plain{grid-template-columns:minmax(0,1fr)}
+body.owner .side{grid-column:1/-1}
+.own{gap:.5rem;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));align-items:end}
+.own label{display:block;font-size:.8rem;color:var(--muted)}
+.own input[type=number]{width:100%;min-height:2.6rem;margin-top:.15rem;padding:.4rem .6rem;background:var(--slate-2);border:1px solid var(--line);color:var(--chalk);font:inherit;font-variant-numeric:tabular-nums}
+.own .chk{display:flex;align-items:center;gap:.5rem;min-height:2.6rem;color:var(--chalk);font-size:.95rem}
+.own .chk input{width:1.2rem;height:1.2rem;accent-color:var(--amber)}
+
+footer{border-top:1px solid var(--line);padding-block:1.6rem 2.4rem;color:var(--muted);font-size:.9rem}
+footer p{max-width:34rem}
+.toggle{margin-top:.9rem;background:none;border:0;padding:.4rem 0;color:var(--chalk);font:500 .95rem var(--body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+
+<div class="sample"><div class="wrap">Menú de ejemplo. Los productos, precios y el local son inventados.</div></div>
+
+<header><div class="wrap">
+  <h1>Barril Norte</h1>
+  <p class="sub">Cervecería de barril. Elegí desde el celular y pedí en la barra.</p>
+</div></header>
+
+<nav class="jump" aria-label="Secciones del menú"><div class="wrap">
+  <a href="#canillas">Canillas</a><a href="#comer">Para comer</a><a href="#sin">Sin alcohol</a>
+</div></nav>
+
+<div class="own-bar"><div class="wrap">Modo dueño. Marcá algo como agotado o cambiá un precio, y el menú que ve el cliente se actualiza al instante.</div></div>
+
+<main><div class="wrap">
+  <section id="canillas">
+    <h2>Canillas</h2>
+    <p class="note">Pinta de 473 ml o litro. El color del vaso es el de cada cerveza.</p>
+    <ul class="list" id="l-beer"></ul>
+  </section>
+  <section id="comer">
+    <h2>Para comer</h2>
+    <ul class="list" id="l-food"></ul>
+  </section>
+  <section id="sin">
+    <h2>Sin alcohol</h2>
+    <ul class="list" id="l-drink"></ul>
+  </section>
+</div></main>
+
+<footer><div class="wrap">
+  <p>Menú digital de ejemplo hecho por Tomas. Si querés uno así para tu local, con precios que cambiás vos mismo, escribime.</p>
+  <button class="toggle" id="own-toggle" type="button">Ver cómo lo edita el dueño</button>
+</div></footer>
+
+<script>
+const BEERS=[
+ {id:'b1',tap:1,name:'Dorada Ligera',style:'Golden Ale',abv:4.6,ibu:18,color:'#EBBB4B',pinta:5200,litro:9800},
+ {id:'b2',tap:2,name:'Miel del Sur',style:'Honey Ale',abv:5.0,ibu:15,color:'#DB9A2E',pinta:5400,litro:10200},
+ {id:'b3',tap:3,name:'Pampa IPA',style:'American IPA',abv:6.5,ibu:55,color:'#C77A1C',pinta:6200,litro:11800},
+ {id:'b4',tap:4,name:'Cítrica Session',style:'Session IPA',abv:4.5,ibu:35,color:'#E5AE3C',pinta:5600,litro:10600},
+ {id:'b5',tap:5,name:'Roja Maltera',style:'Irish Red Ale',abv:5.2,ibu:24,color:'#8E3A19',pinta:5600,litro:10600,out:true},
+ {id:'b6',tap:6,name:'Negra Tostada',style:'Stout',abv:5.8,ibu:30,color:'#2A1608',pinta:6000,litro:11400}
+];
+const FOOD=[
+ {id:'f1',name:'Picada para dos',desc:'Jamón crudo, quesos, aceitunas y grisines.',price:14500},
+ {id:'f2',name:'Papas con cheddar y panceta',desc:'Porción grande, para compartir.',price:7800},
+ {id:'f3',name:'Hamburguesa de la casa',desc:'Doble carne, cheddar, cebolla caramelizada y papas.',price:9600},
+ {id:'f4',name:'Hamburguesa de lentejas',desc:'Con rúcula, tomate y papas.',price:8900,tags:['Vegetariana']},
+ {id:'f5',name:'Provoleta con chimichurri',desc:'A la parrilla, con pan tostado aparte.',price:6900,tags:['Vegetariana','Sin TACC']}
+];
+const DRINKS=[
+ {id:'d1',name:'Limonada con jengibre',desc:'Jarra individual.',price:3800},
+ {id:'d2',name:'Gaseosa',desc:'Línea de 500 ml.',price:2800},
+ {id:'d3',name:'Agua con o sin gas',desc:'500 ml.',price:2200}
+];
+
+let S={};try{S=JSON.parse(localStorage.getItem('barril_demo')||'{}')||{}}catch{S={}}
+const save=()=>{try{localStorage.setItem('barril_demo',JSON.stringify(S))}catch{}};
+const get=(it,f)=>S[it.id]&&S[it.id][f]!==undefined?S[it.id][f]:it[f];
+const money=n=>'$'+Number(n).toLocaleString('es-AR');
+const dec=n=>String(n).replace('.',',');
+
+function glass(b,out){
+  const y=out?55:10;
+  return `<svg class="glass" viewBox="0 0 40 60" aria-hidden="true"><defs><clipPath id="gc-${b.id}"><path d="M5 4h30l-4 52H9z"/></clipPath></defs>
+  <g clip-path="url(#gc-${b.id})"><rect x="0" y="${y}" width="40" height="60" fill="${b.color}"/>${out?'':`<rect x="0" y="${y}" width="40" height="7" fill="#F7F0DA"/>`}</g>
+  <path d="M5 4h30l-4 52H9z" fill="none" stroke="#EFEADB" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+}
+const outCtl=it=>`<label class="chk" for="out-${it.id}"><input type="checkbox" id="out-${it.id}" data-id="${it.id}" data-f="out"${get(it,'out')?' checked':''}> Agotado</label>`;
+const numCtl=(it,f,label)=>`<div><label for="in-${it.id}-${f}">${label}</label><input type="number" inputmode="numeric" min="0" step="100" id="in-${it.id}-${f}" data-id="${it.id}" data-f="${f}" value="${get(it,f)}"></div>`;
+
+function beerRow(b){
+  const out=get(b,'out');
+  return `<li class="row${out?' out':''}">${glass(b,out)}
+    <div><p class="tap">Canilla ${b.tap}</p><h3>${b.name}</h3><p class="meta">${b.style}, ${dec(b.abv)}% ABV, ${b.ibu} IBU</p>${out?'<div class="chips"><span class="chip sold">Agotada hoy</span></div>':''}</div>
+    <div class="price view">${out?'<span class="dash">Sin stock</span>':`<div><span>Pinta</span><b>${money(get(b,'pinta'))}</b></div><div><span>Litro</span><b>${money(get(b,'litro'))}</b></div>`}</div>
+    <div class="side own">${numCtl(b,'pinta','Precio pinta')}${numCtl(b,'litro','Precio litro')}${outCtl(b)}</div></li>`;
+}
+function plainRow(it){
+  const out=get(it,'out'),tags=(it.tags||[]).map(t=>`<span class="chip">${t}</span>`).join('')+(out?'<span class="chip sold">Agotado hoy</span>':'');
+  return `<li class="row plain${out?' out':''}"><div><h3>${it.name}</h3><p class="desc">${it.desc}</p>${tags?`<div class="chips">${tags}</div>`:''}</div>
+    <div class="price view">${out?'<span class="dash">Sin stock</span>':`<b>${money(get(it,'price'))}</b>`}</div>
+    <div class="side own">${numCtl(it,'price','Precio')}${outCtl(it)}</div></li>`;
+}
+function render(){
+  const a=document.activeElement&&document.activeElement.id;
+  document.getElementById('l-beer').innerHTML=BEERS.map(beerRow).join('');
+  document.getElementById('l-food').innerHTML=FOOD.map(plainRow).join('');
+  document.getElementById('l-drink').innerHTML=DRINKS.map(plainRow).join('');
+  if(a){const el=document.getElementById(a);if(el&&el.type==='checkbox')el.focus()}
+}
+const ALL=[...BEERS,...FOOD,...DRINKS];
+document.addEventListener('input',e=>{
+  const t=e.target;if(t.type!=='number'||!t.dataset.f)return;
+  (S[t.dataset.id]=S[t.dataset.id]||{})[t.dataset.f]=Math.max(0,Number(t.value)||0);save();
+});
+document.addEventListener('change',e=>{
+  const t=e.target;if(t.dataset&&t.dataset.f==='out'){(S[t.dataset.id]=S[t.dataset.id]||{}).out=t.checked;save();render()}
+});
+const tg=document.getElementById('own-toggle');
+tg.onclick=()=>{const on=document.body.classList.toggle('owner');tg.textContent=on?'Volver a la vista del cliente':'Ver cómo lo edita el dueño';if(on)window.scrollTo({top:0,behavior:'smooth'})};
+render();
+</script>
+
+</body></html>
